@@ -1,0 +1,43 @@
+* {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  margin: 0;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  background: #0c0e12;
+}
+
+#app {
+  position: fixed;
+  inset: 0;
+}
+
+#app canvas {
+  display: block;
+}
+
+#devtools {
+  position: fixed;
+  left: 16px;
+  bottom: 16px;
+  z-index: 20;
+}
+
+#devtools button {
+  appearance: none;
+  border: 0;
+  border-radius: 6px;
+  padding: 8px 16px;
+  background: #2a2f3a;
+  color: #e8eaed;
+  font: 13px/1 ui-sans-serif, system-ui, sans-serif;
+  cursor: pointer;
+}
+
+#devtools button:hover {
+  background: #3a4150;
+}

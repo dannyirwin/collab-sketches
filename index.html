@@ -1,0 +1,64 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Midi Sketches</title>
+    <link rel="stylesheet" href="./home.css" />
+  </head>
+  <body>
+    <main>
+      <h1>Midi Sketches</h1>
+
+      <section class="sketches" aria-labelledby="sketches-heading">
+        <h2 id="sketches-heading">Sketches</h2>
+        <ul>
+          <li>
+            <a href="./01/">
+              <span class="id">01</span>
+              <span class="meta">
+                <span class="name">First sketch</span>
+                <span class="desc">Go for it Kevin</span>
+              </span>
+            </a>
+          </li>
+          <li>
+            <a href="./_midi_template/">
+              <span class="id">template</span>
+              <span class="meta">
+                <span class="name">_midi_template</span>
+                <span class="desc">Starter midi/audio/p5 engine</span>
+              </span>
+            </a>
+          </li>
+        </ul>
+      </section>
+
+      <section class="how" aria-labelledby="how-heading">
+        <h2 id="how-heading">How the template works</h2>
+        <ol>
+          <li>
+            <strong>MIDI</strong>
+            Tone.js schedules the MIDI tracks and dispatches note events. Synth sound optional if using audio file.
+          </li>
+          <li>
+            <strong>Audio</strong>
+            A bounced audio file plays in sync. That file is what you actually hear if you're not using software instruments.
+          </li>
+          <li>
+            <strong>UI</strong>
+            p5.js reads those live MIDI events and draws the sketch.
+          </li>
+        </ol>
+        <p class="note">
+          You can skip the audio file and play MIDI through Tone instruments in the browser,
+          you'll just have to do synth instruments and effects in code. If you want all the
+          bells and whistles of a midi editor (DAW) you can write MIDI + export audio from
+          a DAW (instruments, effects, mastering included), then use the MIDI only to
+          drive the visuals. Lots of free/trial options for these online. I used
+          GarageBand, it just takes some extra BS to get the midi files out.
+        </p>
+      </section>
+    </main>
+  </body>
+</html>
