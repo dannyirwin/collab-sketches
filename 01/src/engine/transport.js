@@ -71,6 +71,14 @@ export async function initTransport(config) {
 
 /** Unlock Web Audio — required on mobile after a user tap. */
 export async function unlockAudio() {
+  // Match video/music apps: play even when the hardware Silent switch is on.
+  // https://developer.mozilla.org/en-US/docs/Web/API/Navigator/audioSession
+  const session = /** @type {{ audioSession?: { type: string } }} */ (navigator)
+    .audioSession;
+  if (session) {
+    session.type = 'playback';
+  }
+
   await Tone.start();
   const ctx = Tone.getContext();
   if (ctx.state !== 'running') {
