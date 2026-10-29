@@ -17,10 +17,11 @@
  * @property {MidiEvent|null} lastEvent
  */
 
-/** @type {{ ready: boolean, playing: boolean, muted: boolean, position: number, duration: number, bpm: number|null, tracks: Record<string, TrackState> }} */
+/** @type {{ ready: boolean, playing: boolean, audioUnlocked: boolean, muted: boolean, position: number, duration: number, bpm: number|null, tracks: Record<string, TrackState> }} */
 export const playbackState = {
   ready: false,
   playing: false,
+  audioUnlocked: false,
   muted: false,
   position: 0,
   duration: 0,

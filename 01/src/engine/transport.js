@@ -64,8 +64,19 @@ export async function initTransport(config) {
   playbackState.ready = true;
 }
 
-export async function start() {
+/** Unlock Web Audio — required on mobile after a user tap. */
+export async function unlockAudio() {
   await Tone.start();
+  const ctx = Tone.getContext();
+  if (ctx.state !== 'running') {
+    await ctx.resume();
+  }
+  playbackState.audioUnlocked = true;
+}
+
+export async function start() {
+  // Must run from a tap/click handler; browsers (esp. iOS) block audio until then.
+  await unlockAudio();
   if (Tone.Transport.state !== 'started') {
     Tone.Transport.start();
   }
