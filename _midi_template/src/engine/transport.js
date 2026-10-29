@@ -12,6 +12,9 @@ import { parseMidiTracks, scheduleMidiTracks } from './midiEngine.js';
 
 /** @type {(() => void) | null} */
 let detachLoopListener = null;
+/** @type {(() => void) | null} */
+let detachFocusPause = null;
+let resumeWhenVisible = false;
 
 /**
  * @param {{
@@ -67,6 +70,33 @@ export async function initTransport(config) {
 
   playbackState.position = 0;
   playbackState.ready = true;
+  bindFocusPause();
+}
+
+/** Pause when the tab/app is backgrounded; resume if it was playing. */
+function bindFocusPause() {
+  detachFocusPause?.();
+
+  const onVisibility = () => {
+    if (document.hidden) {
+      if (playbackState.playing) {
+        resumeWhenVisible = true;
+        Tone.Transport.pause();
+        playbackState.playing = false;
+      }
+      return;
+    }
+
+    if (resumeWhenVisible) {
+      resumeWhenVisible = false;
+      void start();
+    }
+  };
+
+  document.addEventListener('visibilitychange', onVisibility);
+  detachFocusPause = () => {
+    document.removeEventListener('visibilitychange', onVisibility);
+  };
 }
 
 /** Unlock Web Audio — required on mobile after a user tap. */
@@ -102,6 +132,7 @@ export async function start() {
 }
 
 export function pause() {
+  resumeWhenVisible = false;
   Tone.Transport.pause();
   playbackState.playing = false;
 }
