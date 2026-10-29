@@ -29,9 +29,8 @@ export function mountDevtools() {
     syncChrome();
   }
 
-  // pointerup keeps the user-gesture chain on iOS better than click alone
-  toggleBtn?.addEventListener('pointerup', (event) => {
-    event.preventDefault();
+  // Prefer click for media unlock; keep touch-action: manipulation on the button.
+  toggleBtn?.addEventListener('click', () => {
     void togglePlayback();
   });
 

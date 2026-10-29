@@ -1,6 +1,12 @@
 import * as Tone from 'tone';
 import { clearActiveNotes, playbackState } from '../state.js';
-import { getAudioDuration, loadAudio, setAudioLoop, setMuted } from './audioEngine.js';
+import {
+  armSyncedPlayer,
+  getAudioDuration,
+  loadAudio,
+  setAudioLoop,
+  setMuted,
+} from './audioEngine.js';
 import { resolveLoopDuration } from './loopLength.js';
 import { parseMidiTracks, scheduleMidiTracks } from './midiEngine.js';
 
@@ -39,7 +45,6 @@ export async function initTransport(config) {
     loopBars: config.loopBars,
   });
 
-  // Never loop past the audio buffer.
   const audioDuration = getAudioDuration();
   const clippedLoop = Math.min(loopDuration, audioDuration || loopDuration);
 
@@ -71,12 +76,17 @@ export async function unlockAudio() {
   if (ctx.state !== 'running') {
     await ctx.resume();
   }
+  // Tiny graph tick so iOS fully wakes audio after resume.
+  const tick = new Tone.Oscillator({ volume: -100 }).toDestination();
+  tick.start();
+  tick.stop('+0.01');
   playbackState.audioUnlocked = true;
 }
 
 export async function start() {
-  // Must run from a tap/click handler; browsers (esp. iOS) block audio until then.
   await unlockAudio();
+  // Arm AFTER unlock — synced start during page load stays silent on iOS.
+  armSyncedPlayer(playbackState.duration);
   if (Tone.Transport.state !== 'started') {
     Tone.Transport.start();
   }
