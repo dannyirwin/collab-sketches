@@ -21,7 +21,7 @@ export function sketch(p) {
     p.noStroke();
 
     const x = 20;
-    let y = 28;
+    let y = 64;
 
     p.fill(160);
     p.textSize(12);
