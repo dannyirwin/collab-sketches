@@ -12,7 +12,7 @@ export default defineConfig({
       input: {
         main: resolve(__dirname, 'index.html'),
         sketch01: resolve(__dirname, '01/index.html'),
-        template: resolve(__dirname, '_midi_template/index.html'),
+        template: resolve(__dirname, 'template/index.html'),
       },
     },
   },

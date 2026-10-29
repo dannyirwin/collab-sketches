@@ -8,7 +8,7 @@ npm run dev
 ## Sketches
 
 - **01** — First sketch. Go for it Kevin
-- **_midi_template** — Starter midi/audio/p5 engine
+- **template** — Starter midi/audio/p5 engine
 
 ## How the template works
 
